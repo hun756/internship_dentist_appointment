@@ -21,6 +21,20 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            /**
+             * Our Additions [TR: Bizim Eklediklerimiz]
+             */
+
+            # patient/dentist/admin [TR: Hasta / Dis Hekimi / Site Yoneticisi]
+            $table->integer('role_id');
+            $table->string('gender');
+            $table->string('address')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('status')->nullable();
+            $table->string('department')->nullable();
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
         });
     }
 
