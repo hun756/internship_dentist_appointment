@@ -35,6 +35,11 @@
                     <div class="alert bg-success alert-success text-white" role="alert">
                         {{Session::get('message')}}
                     </div>
+                
+                @else
+                <div class="alert bg-danger alert-warning text-white" role="alert">
+                    {{ 'Basarisiz' }}
+                </div>
                 @endif
             
             <div class="card">
@@ -90,8 +95,8 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="">Status</label>
-                                <input type="text" name="education" class="form-control @error('education') is-invalid @enderror" placeholder="Please Enter Your Highest Education" value="                   {{old('education')}}">
-                                @error('education')
+                                <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" placeholder="Please Enter Your Highest Education" value="{{old('status')}}">
+                                @error('status')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -111,10 +116,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Specialist</label>
-                                <select name="department" class="form-control">
+                                {{-- <select name="department" class="form-control">
                                     <option value="">Please select</option>
-    
-                                </select>
+                                    <option value="">Please select</option>
+                                </select> --}}
+
+                                <input type="text" name="department" class="form-control @error('Department') is-invalid @enderror" placeholder="Dentist department" value="{{old('department')}}">
         
         
                                  @error('department')
@@ -129,7 +136,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Phone number</label>
-                                <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror"value="                   {{old('phone_number')}}">
+                                <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror"value="{{old('phone_number')}}">
                                         @error('phone_number')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -154,6 +161,21 @@
                                         </span>
                                     @enderror
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Role</label>
+                            <select name="role_id" class="form-control @error('role_id') is-invalid @enderror">
+                                <option value="">Please select role</option>
+                                @foreach(App\Role::where('name','!=','patient')->get() as $role)
+                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                @endforeach
+                                
+                            </select>
+                             @error('role_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                         </div>
                     </div>             
                     
