@@ -38,13 +38,10 @@ class DentistController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validateStore($request);
         $data = $request->all();
-        $image = $request->file('image');
-        $name = $image->hashName();
-        $destination = public_path('/images');
-        $image->move($destination, $name);
+        $name = (new User)->userAvatar($request);
 
         $data['image'] = $name;
         $data['password'] = bcrypt($request->password);
@@ -59,19 +56,35 @@ class DentistController extends Controller
      */
     public function validateStore(Request $request)
     {
-        return $this->validate($request,[
-            'name'=>'required',
-            'email'=>'required|unique:users',
-            'password'=>'required|min:6|max:25',
-            'gender'=>'required',
-            'status'=>'required',
-            'address'=>'required',
-            'department'=>'required',
-            'phone_number'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,jpg,png',
-            'role_id'=>'required',
-            'description'=>'required'
-       ]);
+        return $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:6|max:25',
+            'gender' => 'required',
+            'status' => 'required',
+            'address' => 'required',
+            'department' => 'required',
+            'phone_number' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,jpg,png',
+            'role_id' => 'required',
+            'description' => 'required'
+        ]);
+    }
+
+    public function validateUpdate($request, $id)
+    {
+        return  $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'gender' => 'required',
+            'status' => 'required',
+            'address' => 'required',
+            'department' => 'required',
+            'phone_number' => 'required|numeric',
+            'image' => 'mimes:jpeg,jpg,png',
+            'role_id' => 'required',
+            'description' => 'required'
+        ]);
     }
 
     /**
@@ -94,8 +107,8 @@ class DentistController extends Controller
     public function edit($id)
     {
         //
-        $users = User::find($id);
-        return view('admin.dentist.edit', compact('users'));
+        $user = User::find($id);
+        return view('admin.dentist.edit', compact('user'));
     }
 
     /**
@@ -108,6 +121,23 @@ class DentistController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validateUpdate($request, $id);
+        $data = $request->all();
+        $user = User::find($id);
+        $imageName = $user->image;
+        $userPassword = $user->password;
+        if ($request->hasFile('image')) {
+            $imageName = (new User)->userAvatar($request);
+            unlink(public_path('images/' . $user->image));
+        }
+        $data['image'] = $imageName;
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        } else {
+            $data['password'] = $userPassword;
+        }
+        $user->update($data);
+        return redirect()->route('dentist.index')->with('message', 'Dentist updated successfully');
     }
 
     /**
