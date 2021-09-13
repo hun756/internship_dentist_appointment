@@ -96,6 +96,8 @@ class DentistController extends Controller
     public function show($id)
     {
         //
+        $user = User::find($id);
+        return view('admin.dentist.delete', compact('user'));
     }
 
     /**
@@ -149,5 +151,14 @@ class DentistController extends Controller
     public function destroy($id)
     {
         //
+        if (auth()->user()['id'] == $id) {
+            abort(401);
+        }
+        $user = User::find($id);
+        $userDelete = $user->delete();
+        if ($userDelete) {
+            unlink(public_path('images/' . $user->image));
+        }
+        return redirect()->route('dentist.index')->with('message', 'Doctor deleted successfully');
     }
 }
