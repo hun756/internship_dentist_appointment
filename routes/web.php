@@ -37,8 +37,8 @@ Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::resource('dentist', DentistController::class);
 });
 
-
-
-Route::resource('appointment', AppointmentController::class);
-Route::post('/appointment/check', 'AppointmentController@check')->name('appointment.check');
-Route::post('/appointment/update', 'AppointmentController@updateTime')->name('update');
+Route::group(['middleware' => ['auth', 'Dentist']], function () {
+    Route::resource('appointment', AppointmentController::class);
+    Route::post('/appointment/check', 'AppointmentController@check')->name('appointment.check');
+    Route::post('/appointment/update', 'AppointmentController@updateTime')->name('update');
+});
