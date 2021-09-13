@@ -10,7 +10,7 @@ class Appointment extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function denstist() {
+    public function dentist() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

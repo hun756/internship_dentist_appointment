@@ -1,100 +1,90 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="/banner/online-medicine-concept_160901-152.jpg" class="img-fluid"
+                    style="border:1px solid #ccc;">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+            </div>
+            <div class="col-sm-6">
+                <h2>Create an account & Book your appointment</h2>
+                <p> This site is not intended for you to easily make an appointment with your dentist. By becoming a member
+                    of our system, you can choose your dentist, arrange and arrange your appointment and save your time.
+                    Start looking for a dentist right for you. </p>
+                <div class="mt-5">
+                    <a href="{{ url('/register') }}">
+                        <button class="btn btn-success">Register as Patient</button>
+                    </a>
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="{{ url('/login') }}">
+                        <button class="btn btn-secondary">Login</button>
+                    </a>
                 </div>
             </div>
+
         </div>
-    </body>
-</html>
+        <hr>
+        <section class="">
+        <div class=" card">
+            <div class="card-header">Find Doctors</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control " id="datepicker" name="date">
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary">Find doctors</button>
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+
+    <div class="card mt-1">
+        <div class="card-header"> Doctors available today</div>
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($dentists as $dentist)
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><img src="{{ asset('images') }}/{{ $dentist->dentist['image'] }}" width="80" style="border-radius: 50%;">
+                            </td>
+                            <td>{{ $dentist->dentist['name'] }}</td>
+                            <td>{{ $dentist->dentist['department'] }}</td>
+                            <td>
+                                <button class="btn btn-success">Book Appointment</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <td>
+                            No Dentists Available.
+                        </td>
+                    @endforelse
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+    </div>
+    </section>
+    </div>
+
+
+@endsection
