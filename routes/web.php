@@ -36,3 +36,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::resource('dentist', DentistController::class);
 });
+
+Route::resource('appointment', AppointmentController::class);
