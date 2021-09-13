@@ -73,7 +73,7 @@
                                                             <i class="ik ik-eye"></i>
                                                         </a>
 
-                                                        <a href="#"><i class="ik ik-edit-2"></i></a>
+                                                        <a href="{{route('dentist.edit', [$user->id])}}"><i class="ik ik-edit-2"></i></a>
                                                         <a href="#"><i class="ik ik-trash-2"></i></a>
                                                     </div>
                                                 </td>
