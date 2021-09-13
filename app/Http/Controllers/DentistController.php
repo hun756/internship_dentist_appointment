@@ -15,6 +15,8 @@ class DentistController extends Controller
     public function index()
     {
         //
+        $dentists = User::get();
+        return view('admin.dentist.index', compact('dentists'));
     }
 
     /**
@@ -92,6 +94,8 @@ class DentistController extends Controller
     public function edit($id)
     {
         //
+        $users = User::find($id);
+        return view('admin.dentist.edit', compact('users'));
     }
 
     /**
