@@ -28,7 +28,17 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('appointment.store') }}" method="post">
+            @if (Session::has('message'))
+                <div class="alert bg-success alert-success text-white" role="alert">
+                    {{ Session::get('message') }}
+                </div>
+            @endif
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                    {{ $error }}                    
+                </div>
+            @endforeach
+            <form action="{{ route('appointment.store') }}" method="post">@csrf
 
                 <div class="card">
                     <div class="card-header">
@@ -36,7 +46,7 @@
                     </div>
                     <div class="card-body">
                         <input type="text" class="form-control datetimepicker-input" id="datepicker"
-                            data-toggle="datetimepicker" data-target="#datepicker">
+                            data-toggle="datetimepicker" data-target="#datepicker" name="date">
                     </div>
                 </div>
                 <div class="card">
