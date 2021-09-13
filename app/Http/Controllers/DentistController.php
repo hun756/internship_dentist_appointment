@@ -15,7 +15,7 @@ class DentistController extends Controller
     public function index()
     {
         //
-        $dentists = User::get();
+        $dentists = User::where('role_id', '!=', 3)->get();
         return view('admin.dentist.index', compact('dentists'));
     }
 
