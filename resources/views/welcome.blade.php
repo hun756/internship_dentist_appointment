@@ -27,61 +27,67 @@
 
         </div>
         <hr>
-        <section class="">
-        <div class=" card">
-            <div class="card-header">Find Doctors</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control " id="datepicker" name="date">
-                    </div>
-                    <div class="col-sm-4">
-                        <button class="btn btn-primary">Find doctors</button>
-                    </div>
+        {{-- Search Dentist --}}
+        <form action="{{url('/')}}" method="GET">
+            <div class=" card">
+                <div class="card-header">Find Dentists</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="datepicker" name="date">
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary">Find Dentists</button>
+                        </div>
 
+                    </div>
                 </div>
+
+            </div>
+        </form>
+
+
+        <div class="card mt-1">
+            <div class="card-header"> Dentists available today</div>
+            <div class="card-body">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($dentists as $dentist)
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><img src="{{ asset('images') }}/{{ $dentist->dentist['image'] }}" width="80"
+                                        style="border-radius: 50%;">
+                                </td>
+                                <td>{{ $dentist->dentist['name'] }}</td>
+                                <td>{{ $dentist->dentist['department'] }}</td>
+                                <td>
+                                    <a href="{{ route('create.appointment', [$dentist->user_id, $dentist->date]) }}">
+                                        <button class="btn btn-success">Book Appointment</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <td>
+                                No Dentists Available.
+                            </td>
+                        @endforelse
+                    </tbody>
+                </table>
+
+
             </div>
 
-    </div>
-
-    <div class="card mt-1">
-        <div class="card-header"> Doctors available today</div>
-        <div class="card-body">
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Category</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($dentists as $dentist)
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><img src="{{ asset('images') }}/{{ $dentist->dentist['image'] }}" width="80" style="border-radius: 50%;">
-                            </td>
-                            <td>{{ $dentist->dentist['name'] }}</td>
-                            <td>{{ $dentist->dentist['department'] }}</td>
-                            <td>
-                                <button class="btn btn-success">Book Appointment</button>
-                            </td>
-                        </tr>
-                    @empty
-                        <td>
-                            No Dentists Available.
-                        </td>
-                    @endforelse
-                </tbody>
-            </table>
-
-
         </div>
-
-    </div>
     </div>
     </section>
     </div>
