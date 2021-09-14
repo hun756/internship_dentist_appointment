@@ -203,7 +203,7 @@
                                     <label for="exampleTextarea1">About</label>
                                     <textarea class="form-control @error('description') is-invalid @enderror"
                                         id="exampleTextarea1" rows="4" name="description">{{ $user->description }}
-                                        
+
                                         </textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">

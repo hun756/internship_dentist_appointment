@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
              * Our Additions [TR: Bizim Eklediklerimiz]
              */
 
-            # patient/dentist/admin [TR: Hasta / Dis Hekimi / Site Yoneticisi]
+            # patient/dentists/admin [TR: Hasta / Dis Hekimi / Site Yoneticisi]
             $table->integer('role_id');
             $table->string('gender');
             $table->string('address')->nullable();

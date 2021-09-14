@@ -159,6 +159,6 @@ class DentistController extends Controller
         if ($userDelete) {
             unlink(public_path('images/' . $user->image));
         }
-        return redirect()->route('dentist.index')->with('message', 'Doctor deleted successfully');
+        return redirect()->route('dentists.index')->with('message', 'Doctor deleted successfully');
     }
 }

@@ -201,7 +201,7 @@
                                     <textarea class="form-control @error('description') is-invalid @enderror"
                                         id="exampleTextarea1" rows="4" name="description">
                                     {{ old('description') }}
-                    
+
                                     </textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
