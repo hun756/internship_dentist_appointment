@@ -27,8 +27,7 @@
                     <div class="card-header">Update Profile</div>
 
                     <div class="card-body">
-                        {{-- <form action="{{ route('profile.store') }}" method="post">@csrf --}}
-                        <form action="#" method="post">@csrf
+                        <form action="{{ route('profile.store') }}" method="post">@csrf
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -87,8 +86,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">Update Image</div>
-                    {{-- <form action="{{ route('profile.pic') }}" method="post" enctype="multipart/form-data">@csrf --}}
-                    <form action="#" method="post" enctype="multipart/form-data">@csrf
+                    <form action="{{ route('profile.pic') }}" method="post" enctype="multipart/form-data">@csrf
                         <div class="card-body">
                             @if (!auth()->user()->image)
                                 <img src="/images/3Dz1og01c2vXjbjmfTskpLqdVGEB2Qmpg1DLROiR.png" width="120">

@@ -27,7 +27,8 @@ Route::get('/test', function () {
 });
 
 Route::get('/profile','ProfileController@index');
-Route::post('/profile','ProfileController@store');
+Route::post('/profile','ProfileController@store')->name('profile.store');
+Route::post('/profile-pic','ProfileController@profilePic')->name('profile.pic')->middleware('auth');
 
 Route::get('/dashboard','DashboardController@index');
 
