@@ -15,22 +15,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'FrontendController@index');
 
-Route::get('/new-appointment/{doctorId}/{date}','FrontendController@show')->name('create.appointment');
+Route::get('/new-appointment/{doctorId}/{date}', 'FrontendController@show')->name('create.appointment');
+
+Route::group(['middleware' => ['auth', 'Admin']], function () {
+    Route::post('/booking/appointment', 'FrontendController@store')->name('booking.appointment');
+
+    Route::get('/my-booking', 'FrontendController@myBookings')->name('my.booking');
 
 
-Route::post('/booking/appointment','FrontendController@store')->name('booking.appointment')->middleware('auth');
+    Route::get('/profile', 'ProfileController@index');
+    Route::post('/profile', 'ProfileController@store')->name('profile.store');
+    Route::post('/profile-pic', 'ProfileController@profilePic')->name('profile.pic');
+});
 
-Route::get('/my-booking','FrontendController@myBookings')->name('my.booking')->middleware('auth');
 
+Route::get('/dashboard', 'DashboardController@index');
 Route::get('/test', function () {
     return view('test');
 });
-
-Route::get('/profile','ProfileController@index');
-Route::post('/profile','ProfileController@store')->name('profile.store');
-Route::post('/profile-pic','ProfileController@profilePic')->name('profile.pic')->middleware('auth');
-
-Route::get('/dashboard','DashboardController@index');
 
 Auth::routes();
 
