@@ -65,6 +65,20 @@ class FrontendController extends Controller
             ->where('time', $request->time)
             ->update(['status' => 1]);
 
+        // // E mail
+        $dentistName = User::where('id', $request->dentistId)->first();
+        $mailData = [
+            'name' => auth()->user()->name,
+            'time' => $request->time,
+            'date' => $request->date,
+            'dentistName' => $dentistName->name
+
+        ];
+        try {
+            \Mail::to(auth()->user()->email)->send(new AppointmentMail($mailData));
+
+        } catch (\Exception $e) {
+        }
 
         return redirect()->back()->with('message', 'Your appointment was booked');
     }
