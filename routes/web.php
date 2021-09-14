@@ -21,6 +21,8 @@ Route::get('/dashboard','DashboardController@index');
 
 Route::post('/booking/appointment','FrontendController@store')->name('booking.appointment')->middleware('auth');
 
+Route::get('/my-booking','FrontendController@myBookings')->name('my.booking')->middleware('auth');
+
 Route::get('/test', function () {
     return view('test');
 });

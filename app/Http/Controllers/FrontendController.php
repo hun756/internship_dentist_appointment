@@ -76,7 +76,6 @@ class FrontendController extends Controller
         ];
         try {
             \Mail::to(auth()->user()->email)->send(new AppointmentMail($mailData));
-
         } catch (\Exception $e) {
         }
 
@@ -89,5 +88,11 @@ class FrontendController extends Controller
             ->where('user_id', auth()->user()->id)
             ->whereDate('created_at', date('Y-m-d'))
             ->exists();
+    }
+
+    public function myBookings()
+    {
+        $appointments = Booking::latest()->where('user_id', auth()->user()->id)->get();
+        return view('booking.index', compact('appointments'));
     }
 }
