@@ -47,8 +47,9 @@ class DentistController extends Controller
         $data['password'] = bcrypt($request->password);
         User::create($data);
 
-        return redirect()->back()->with('message', 'Dentist Added Successfully');
-        // dd($request->all());
+        return redirect()
+            ->back()
+            ->with('message', 'Dentist Added Successfully');
     }
 
     /**

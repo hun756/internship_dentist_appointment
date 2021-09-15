@@ -17,11 +17,10 @@ Route::get('/', 'FrontendController@index');
 
 Route::get('/new-appointment/{doctorId}/{date}', 'FrontendController@show')->name('create.appointment');
 
-Route::group(['middleware' => ['auth', 'Admin']], function () {
+Route::group(['middleware' => ['auth', 'Patient']], function () {
     Route::post('/booking/appointment', 'FrontendController@store')->name('booking.appointment');
 
     Route::get('/my-booking', 'FrontendController@myBookings')->name('my.booking');
-
 
     Route::get('/profile', 'ProfileController@index');
     Route::post('/profile', 'ProfileController@store')->name('profile.store');
